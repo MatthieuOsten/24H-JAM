@@ -37,7 +37,6 @@ public class LevelManager : MonoBehaviour
             return _instance;
         }
     }
-
     #endregion
 
     #region VARIABLE
@@ -53,6 +52,17 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     #region FUNCTION UNITY
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            int rnd = UnityEngine.Random.Range(0, BuildingManager.Instance.buildingPrefabs.Count);
+            int rnd2 = UnityEngine.Random.Range(0, BuildingManager.Instance.buildingPrefabs[rnd].BuildingPrefabs.Count);
+            GameObject building = Instantiate(BuildingManager.Instance.buildingPrefabs[rnd].BuildingPrefabs[rnd2]);
+            building.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            building.transform.position = new Vector3(building.transform.position.x, building.transform.position.y, 0);
+        }
+    }
     #endregion
 
     #region FUNCTION
