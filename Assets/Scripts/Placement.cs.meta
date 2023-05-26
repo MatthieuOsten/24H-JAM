@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 70d84962b3b73de4eb748a4c8dc2bec5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _tilemap: {instanceID: 0}
+  - _actualBuilding: {instanceID: 0}
+  - _actualObject: {instanceID: 0}
+  - _tileBase: {fileID: 11400000, guid: c6fa52d2f9177c7468b4fa93eb0fd0ea, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
