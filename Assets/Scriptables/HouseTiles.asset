@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HouseTiles
   m_EditorClassIdentifier: 
   buildingPrefabs:
-  - {fileID: 11400000, guid: a14bcd8636d3d15b59491b1a7a6be9c2, type: 2}
+  - {fileID: 11400000, guid: 9460eef81a0fb27e6aedd96be383e9d6, type: 2}
   - {fileID: 11400000, guid: cb1087635b515e54bbece8141d387d49, type: 2}
   - {fileID: 11400000, guid: 2add72fb18023b041a3ab722fe44ee69, type: 2}
