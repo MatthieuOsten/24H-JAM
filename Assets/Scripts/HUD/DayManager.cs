@@ -15,10 +15,13 @@ public class DayManager : MonoBehaviour
     [SerializeField] private Vector2 _defaultLimitIntensity = new Vector2(0.5f,2.5f);
     [SerializeField] private bool _enableLight = false;
     [SerializeField] private Light2D _light;
+    [SerializeField] private bool _dontLoop = true;
 
     [Header("Statut")]
     [SerializeField] private bool _changeAstre = false;
     [SerializeField] private bool _switchMoonToSun = true;
+    [SerializeField] private List<float> _listChangePoints = new List<float>();
+    [SerializeField] private float _actualPoint = -1;
 
     [Header("Speed")]
     [SerializeField] private float _speed = 0.2f, _speedFade = 1f;
@@ -52,6 +55,29 @@ public class DayManager : MonoBehaviour
         else
         {
             _slider = FindObjectOfType<Slider>();
+        }
+
+        if (_actualPoint >= 0 && _listChangePoints.Count > 0)
+        {
+            if (_actualPoint < _time)
+            {
+                _changeAstre = true;
+                foreach (var item in _listChangePoints)
+                {
+                    if (item > _actualPoint)
+                    {
+                        _actualPoint = item;
+                    }
+                    return;
+                }
+
+                _actualPoint = -1;
+            }
+        }
+        else
+        {
+            if (_listChangePoints.Count > 0)
+            _actualPoint = _listChangePoints[0];
         }
 
         if (_enableLight)
@@ -119,7 +145,9 @@ public class DayManager : MonoBehaviour
         }
         else if (_time >= 1)
         {
-            _time = 0;
+            if (!_dontLoop)
+                _time = 0;
+            
             _endOfDay.Invoke();
         }
     }

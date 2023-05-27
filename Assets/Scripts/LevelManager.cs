@@ -193,6 +193,30 @@ public class LevelManager : MonoBehaviour
         _previewTilemap.SetTile(currentGridPosition, _actualTile);
     }
 
+    public void EndLevel(string name)
+    {
+        int index = -1, actualValue = 0;
+
+        for (int i = 0; i < buildingValues.Count; i++)
+        {
+            if (buildingValues[i] > actualValue)
+            {
+                actualValue= buildingValues[i];
+                index= i;
+            }
+        }
+
+        if (index > -1)
+        {
+            GameManager.Instance.LoadScene(name);
+        }
+        else
+        {
+            GameManager.Instance.LoadScene("MainMenu");
+        }
+
+    }
+
     #endregion
 
 }
