@@ -25,6 +25,12 @@ public class House : BuildingTileScriptable
                 cnt++;
         }
         levelManager.BuildingValues[2] += cnt;
+        
+        Vector3 worldPos = map.CellToWorld(pos);
+        worldPos.x += 0.5f;
+        worldPos.y += 0.5f;
+        worldPos.z = 1f;
+        BuildText.Instance.UpdateText(worldPos, cnt.ToString());
     }
     
 }
