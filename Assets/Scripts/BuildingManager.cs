@@ -6,11 +6,16 @@ public class BuildingManager : MonoBehaviour
 {
     
     #region SINGLETON
+    
+    private static BuildingManager _instance = null;
+    
     public static BuildingManager Instance
     {
         get
         {
-            return GameObject.FindObjectOfType<BuildingManager>();
+            if (_instance == null)
+                _instance = GameObject.FindObjectOfType<BuildingManager>();
+            return _instance;
         }
     }
     #endregion
