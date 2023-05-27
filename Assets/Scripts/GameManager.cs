@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -54,6 +55,15 @@ public class GameManager : MonoBehaviour
         get => win;
         set => win = value;
     }
-    
+
+    #endregion
+
+    #region FUNCTION
+
+    public void LoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
     #endregion
 }

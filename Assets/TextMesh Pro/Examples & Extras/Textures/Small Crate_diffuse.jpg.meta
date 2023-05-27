@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/TextMesh Pro/Examples & Extras/Textures/Small Crate_diffuse.jpg.meta
 guid: 602cb87b6a29443b8636370ea0751574
+========
+guid: b0c0f5bdc81674144bdb31c4009372de
+>>>>>>>> Matthieu:Assets/UI/Fin_Famine.png.meta
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -119,7 +123,12 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
+<<<<<<<< HEAD:Assets/TextMesh Pro/Examples & Extras/Textures/Small Crate_diffuse.jpg.meta
     spriteID: 
+========
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+>>>>>>>> Matthieu:Assets/UI/Fin_Famine.png.meta
     vertices: []
     indices: 
     edges: []
