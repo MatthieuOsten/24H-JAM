@@ -32,8 +32,8 @@ public class SoundManager : MonoBehaviour
     
     #region VARIABLE
     
-    [SerializeField] private List<AudioSource> _audioSources;
-    [SerializeField] private List<AudioClip> _audioClips;
+    [SerializeField] private List<AudioSource> _audioSources = new List<AudioSource>();
+    [SerializeField] private List<AudioClip> _audioClips = new List<AudioClip>();
     
     #endregion
     
@@ -49,16 +49,6 @@ public class SoundManager : MonoBehaviour
     {
         get => _audioClips;
         set => _audioClips = value;
-    }
-    
-    #endregion
-    
-    #region FUNCTION UNITY
-    
-    private void Start()
-    {
-        _audioSources = new List<AudioSource>();
-        _audioClips = new List<AudioClip>();
     }
     
     #endregion
