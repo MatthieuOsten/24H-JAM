@@ -29,13 +29,9 @@ public class Placement : MonoBehaviour
             Mathf.RoundToInt(_tilemap.transform.position.z)
             );
 
-        if (_tilemap.GetTile(_mousePosInt) == null)
+        if (_tilemap.GetTile(_mousePosInt) != null)
         {
-            GameObject thisObject = Instantiate(_gameObject);
-            thisObject.transform.position = _tilemap.CellToWorld(_mousePosInt);
+            _tilemap.SetTile(_mousePosInt, _tileBase);
         }
-
-        _tilemap.SetTile(_mousePosInt, _tileBase);
-
     }
 }
