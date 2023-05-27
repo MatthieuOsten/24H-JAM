@@ -45,11 +45,30 @@ public class DayManager : MonoBehaviour
 
     private void Update()
     {
-        _slider.value = _time;
+        if (_slider != null)
+        {
+            _slider.value = _time;
+        }
+        else
+        {
+            _slider = FindObjectOfType<Slider>();
+        }
 
-        if (_light != null)
+        if (_enableLight)
         {
             _light.intensity = Mathf.Clamp(_astreFade * 1.5f, _defaultLimitIntensity.x, _defaultLimitIntensity.y);
+        }
+        else
+        {
+            if (TryGetComponent<Light2D>(out _light))
+            {
+                _enableLight = true;
+                _light.lightType = Light2D.LightType.Global;
+            }
+            else
+            {
+                _enableLight = false;
+            }
         }
 
     }
@@ -107,11 +126,20 @@ public class DayManager : MonoBehaviour
 
     private void UpdateAstre()
     {
-        Image image = _slider.handleRect.GetComponent<Image>();
+        if (_slider != null)
+        {
+            Image image = _slider.handleRect.GetComponent<Image>();
 
-        Material mat = Instantiate(image.material);
-        mat.SetFloat("_Scale", _astreFade);
-        image.material = mat;
+            Material mat = Instantiate(image.material);
+            mat.SetFloat("_Scale", _astreFade);
+            image.material = mat;
+        }
+        else
+        {
+            _slider = FindObjectOfType<Slider>();
+        }
+
     }
+
 
 }
