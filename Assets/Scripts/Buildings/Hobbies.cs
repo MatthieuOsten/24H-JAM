@@ -11,13 +11,14 @@ public class Hobbies : BuildingTileScriptable
         LevelManager levelManager = LevelManager.Instance;
         int[] tiles = levelManager.GetNeighboursTiles(map, pos);
         int cnt = 1;
+        int loss = 0;
         
         foreach (int tile in tiles)
         {
             if (tile == 0)
             {
                 cnt--;
-                levelManager.BuildingValues[tile]--;
+                loss++;
             }
             if (tile == 2)
             {
@@ -26,12 +27,13 @@ public class Hobbies : BuildingTileScriptable
             }
         }
         levelManager.BuildingValues[1] += cnt;
+        levelManager.BuildingValues[0] -= loss;
         
         Vector3 worldPos = map.CellToWorld(pos);
         worldPos.x += 0.5f;
         worldPos.y += 0.5f;
         worldPos.z = 1f;
-        BuildText.Instance.UpdateText(worldPos, cnt.ToString());
+        BuildText.Instance.UpdateText(worldPos, "Happiness: " +  cnt + "\nWork: " + -loss);
     }
     
 }

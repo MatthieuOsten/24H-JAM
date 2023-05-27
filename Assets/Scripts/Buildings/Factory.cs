@@ -11,6 +11,7 @@ public class Factory : BuildingTileScriptable
         LevelManager levelManager = LevelManager.Instance;
         int[] tiles = levelManager.GetNeighboursTiles(map, pos);
         int cnt = 1;
+        int loss = 0;
         
         foreach (int tile in tiles)
         {
@@ -21,16 +22,17 @@ public class Factory : BuildingTileScriptable
             if (tile == 2)
             {
                 cnt++;
-                levelManager.BuildingValues[tile]--;
+                loss++;
             }
         }
         levelManager.BuildingValues[0] += cnt;
+        levelManager.BuildingValues[2] -= loss;
         
         Vector3 worldPos = map.CellToWorld(pos);
         worldPos.x += 0.5f;
         worldPos.y += 0.5f;
         worldPos.z = 1f;
-        BuildText.Instance.UpdateText(worldPos, cnt.ToString());
+        BuildText.Instance.UpdateText(worldPos, "Work: " +  cnt + "\nPopulation: " + -loss);
     }
     
 }
