@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "Hobbies", menuName = "Scriptable/Hobbies", order = 1)]
-public class Hobbies : BuildingScriptable
+public class Hobbies : BuildingTileScriptable
 {
 
     public override void OnPlace(Tilemap map, Vector3Int pos)

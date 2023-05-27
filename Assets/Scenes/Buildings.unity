@@ -5481,6 +5481,7 @@ MonoBehaviour:
   _currentCamera: {fileID: 1037440953}
   _allowedPlacement: {fileID: 11400000, guid: 1260a2e9fa1f651889abff337cde8548, type: 2}
   _actualTile: {fileID: 0}
+  _actualSprite: {fileID: 0}
   _prefabId: 0
   currentGridPosition: {x: 0, y: 0, z: 0}
   lastGridPosition: {x: 0, y: 0, z: 0}
@@ -6132,10 +6133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8489cc6aa54f88b30d13577b17c7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingPrefabs:
+  buildingTiles:
   - {fileID: 11400000, guid: 3ce56af762d8d9870876ce6647791b65, type: 2}
   - {fileID: 11400000, guid: 508762cdd6ebc20bf95f4c7c96f36e86, type: 2}
   - {fileID: 11400000, guid: 0fd68d2490f5529cd91eef0805c96592, type: 2}
+  buildingSprites:
+  - {fileID: 11400000, guid: 53c26d4422c99ed7a850591087a24076, type: 2}
+  - {fileID: 11400000, guid: 404a039187056d14793b952ba5d6bdcf, type: 2}
+  - {fileID: 11400000, guid: f5e082d6671ba8cbcb6e7ee6dadddbc1, type: 2}
 --- !u!4 &1994430653
 Transform:
   m_ObjectHideFlags: 0

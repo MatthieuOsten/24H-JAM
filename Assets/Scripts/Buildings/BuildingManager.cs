@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class BuildingManager : MonoBehaviour
     #endregion
     
     #region VARIABLE
-    [SerializeField] public List<BuildingScriptable> buildingPrefabs = new List<BuildingScriptable>();
+    [SerializeField] public List<BuildingTileScriptable> buildingTiles = new List<BuildingTileScriptable>();
+    [SerializeField] public List<BuildingSpriteScriptable> buildingSprites = new List<BuildingSpriteScriptable>();
     #endregion
     
 }

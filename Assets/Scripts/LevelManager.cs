@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
@@ -39,10 +40,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Tilemap _buildingTilemap;
     [SerializeField] private Tilemap _previewTilemap;
     [SerializeField] private Camera _currentCamera;
-    [SerializeField] private BuildingScriptable _allowedPlacement;
+    [SerializeField] private BuildingTileScriptable _allowedPlacement;
     [SerializeField] private TileBase _actualTile;
+    [SerializeField] private Sprite _actualSprite;
     [SerializeField] private int _prefabId;
-
 
     [SerializeField] private Vector3Int currentGridPosition;
     [SerializeField] private Vector3Int lastGridPosition;
@@ -55,14 +56,19 @@ public class LevelManager : MonoBehaviour
         get => buildingValues;
         set => buildingValues = value;
     }
+    
+    public Sprite ActualSprite
+    {
+        get => _actualSprite;
+        set => _actualSprite = value;
+    }
     #endregion
 
     #region FUNCTION UNITY
 
     private void Start()
     {
-        _actualTile = GetNewTile();
-
+        GetNewTile();
         SceneManager.LoadScene("HUD",LoadSceneMode.Additive);
     }
 
@@ -89,9 +95,10 @@ public class LevelManager : MonoBehaviour
                 return;
             BuildingManager buildingManager = BuildingManager.Instance;
             _buildingTilemap.SetTile(mousePosInt, _actualTile);
-            buildingManager.buildingPrefabs[_prefabId].OnPlace(_buildingTilemap, mousePosInt);
-
-            _actualTile = GetNewTile();
+            _groundTilemap.SetTile(mousePosInt, _allowedPlacement.BuildingPrefabs[0]);
+            buildingManager.buildingTiles[_prefabId].OnPlace(_buildingTilemap, mousePosInt);
+            Timer.Instance.time = 5f;
+            GetNewTile();
         }
         else if (_actualTile != null)
         {
@@ -123,12 +130,14 @@ public class LevelManager : MonoBehaviour
 
     public TileBase GetNewTile()
     {
-        int rnd = UnityEngine.Random.Range(0, BuildingManager.Instance.buildingPrefabs.Count);
-        int rnd2 = UnityEngine.Random.Range(0, BuildingManager.Instance.buildingPrefabs[rnd].BuildingPrefabs.Count);
+        BuildingManager manager = BuildingManager.Instance;
+        int rnd = Random.Range(0, manager.buildingTiles.Count);
+        int rnd2 = Random.Range(0, manager.buildingTiles[rnd].BuildingPrefabs.Count);
 
         _prefabId = rnd;
-
-        return BuildingManager.Instance.buildingPrefabs[rnd].BuildingPrefabs[rnd2];
+        _actualSprite = manager.buildingSprites[rnd].BuildingPrefabs[rnd2];
+        _actualTile = manager.buildingTiles[rnd].BuildingPrefabs[rnd2];
+        return _actualTile;
     }
 
     public int[] GetNeighboursTiles(Tilemap map, Vector3Int pos)
