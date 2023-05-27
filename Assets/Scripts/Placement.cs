@@ -86,6 +86,7 @@ public class Placement : MonoBehaviour
         {
             Vector3 mousePos = _currentCamera.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int mousePosInt = _tilemap.WorldToCell(mousePos);
+
             mousePosInt = new Vector3Int(
                 mousePosInt.x,
                 mousePosInt.y,
