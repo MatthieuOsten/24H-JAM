@@ -12,4 +12,6 @@ public class BuildingScriptable: ScriptableObject
         get => buildingPrefabs;
         set => buildingPrefabs = value;
     }
+    
+    public virtual void OnPlace(Tilemap map, Vector3Int pos) {}
 }

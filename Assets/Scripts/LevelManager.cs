@@ -72,13 +72,38 @@ public class LevelManager : MonoBehaviour
             }
             if (cnt == 0)
                 return;
-            _buildingTilemap.SetTile(mousePosInt, 
-                BuildingManager.Instance.buildingPrefabs[rnd].BuildingPrefabs[rnd2]);
+            BuildingManager buildingManager = BuildingManager.Instance;
+            _buildingTilemap.SetTile(mousePosInt,
+                buildingManager.buildingPrefabs[rnd].BuildingPrefabs[rnd2]);
+            buildingManager.buildingPrefabs[rnd].OnPlace(_buildingTilemap, mousePosInt);
         }
     }
     #endregion
 
     #region FUNCTION
+
+    public int[] GetNeighboursTiles(Tilemap map, Vector3Int pos)
+    {
+        int[] neighbours = new int[4];
+        neighbours[0] = GetTileId(map.GetTile(new Vector3Int(pos.x, pos.y + 1, pos.z)));
+        neighbours[1] = GetTileId(map.GetTile(new Vector3Int(pos.x, pos.y - 1, pos.z)));
+        neighbours[2] = GetTileId(map.GetTile(new Vector3Int(pos.x + 1, pos.y, pos.z)));
+        neighbours[3] = GetTileId(map.GetTile(new Vector3Int(pos.x - 1, pos.y, pos.z)));
+        return neighbours;
+    }
+
+    private int GetTileId(TileBase tile)
+    {
+        if (!tile)
+            return -1;
+        if (tile.name.Contains("Factory"))
+            return 0;
+        if (tile.name.Contains("Hobbies"))
+            return 1;
+        if (tile.name.Contains("House"))
+            return 2;
+        return -1;
+    }
     #endregion
 
 }
