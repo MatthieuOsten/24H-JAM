@@ -41,11 +41,20 @@ public class GameManager : MonoBehaviour
         End
     }
 
+    public enum Ending
+    {
+        depression,
+        starvation,
+        overpopulation,
+        pollution
+    }
+
     #endregion
-    
+
     #region VARIABLE
-    
+
     private int win = 0;
+    private Ending _ending;
     
     #endregion
     
@@ -57,6 +66,12 @@ public class GameManager : MonoBehaviour
         set => win = value;
     }
 
+    public Ending TheEnding
+    {
+        get => _ending;
+        set => _ending = value;
+    }
+
     #endregion
 
     #region FUNCTION
@@ -65,6 +80,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(name);
     }
+
 
     #endregion
 
@@ -82,6 +98,15 @@ public class GameManager : MonoBehaviour
         }
         
         DontDestroyOnLoad(this);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Escape key was pressed.");
+            Application.Quit();
+        }
     }
 
     #endregion

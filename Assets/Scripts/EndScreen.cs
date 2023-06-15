@@ -14,6 +14,28 @@ public class EndScreen : MonoBehaviour
 
     [SerializeField] private Vector3 _acrochPoint;
 
+    [SerializeField] private ScriptableEnding _endings;
+    [SerializeField] private Image _imageEnding;
+
+    [SerializeField] private AudioClip _endMusic;
+
+    private void Awake()
+    {
+        if ((int)GameManager.Instance.TheEnding <= _endings.listSprites.Count && (int)GameManager.Instance.TheEnding > 0)
+        {
+            _imageEnding.sprite = _endings.listSprites[(int)GameManager.Instance.TheEnding];
+        }
+    }
+
+    private void Start()
+    {
+        if (_endMusic != null)
+        {
+            SoundManager.Instance.PlaySound(_endMusic);
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -25,6 +47,11 @@ public class EndScreen : MonoBehaviour
             _camera.transform.position.z);
         }
 
+    }
+
+    public void ReturnToMenu()
+    {
+        GameManager.Instance.LoadScene("MainMenu");
     }
 
 }
