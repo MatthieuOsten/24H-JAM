@@ -259,7 +259,7 @@ MonoBehaviour:
   _destination: 0
   _speed: 2
   _acrochPoint: {x: 0, y: 0, z: 0}
-  _endings: {fileID: 0}
+  _endings: {fileID: 11400000, guid: 7d1b1b76a9a7a6c48be7affbd50cdecf, type: 2}
   _imageEnding: {fileID: 0}
   _endMusic: {fileID: 0}
 --- !u!4 &714237784
@@ -331,7 +331,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -480,7 +480,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 714237783}
         m_TargetAssemblyTypeName: EndScreen, Assembly-CSharp
-        m_MethodName: ReturnToMenu
+        m_MethodName: ReturnToGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599407778}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.21, y: 0, z: 0}
+  m_LocalPosition: {x: -30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

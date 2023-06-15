@@ -49,9 +49,9 @@ public class EndScreen : MonoBehaviour
 
     }
 
-    public void ReturnToMenu()
+    public void ReturnToGame()
     {
-        GameManager.Instance.LoadScene("MainMenu");
+        GameManager.Instance.LoadScene("Buildings");
     }
 
 }
