@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private int win = 0;
     private Ending _ending;
+    [SerializeField] private int[] _scores = new int[0];
     [SerializeField] private string[] _nameLevels = new string[0];
 
     #endregion
@@ -76,6 +77,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region FUNCTION
+
+    public void SetScore(int[] score)
+    {
+        _scores = score;
+    }
 
     public void LoadScene(string name)
     {

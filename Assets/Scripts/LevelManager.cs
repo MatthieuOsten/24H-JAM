@@ -222,6 +222,11 @@ public class LevelManager : MonoBehaviour
 
         if (index > -1)
         {
+            if (index < (int)GameManager.Ending.pollution)
+            {
+                GameManager.Instance.TheEnding = (GameManager.Ending)index;
+            }
+
             GameManager.Instance.LoadScene(name);
         }
         else

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EndScreen : MonoBehaviour
 {
+
     [SerializeField] private GameObject _splashArt;
     [SerializeField] private GameObject _camera;
 
@@ -37,6 +38,17 @@ public class EndScreen : MonoBehaviour
         if (_endMusic != null)
         {
             SoundManager.Instance.PlaySound(_endMusic);
+        }
+
+        if (_imageEnding != null)
+        {
+            int index = (int)GameManager.Instance.TheEnding;
+
+            if (index >= 0 && index < _endings.listSprites.Count)
+            {
+                _imageEnding.sprite = _endings.listSprites[index];
+            }
+             
         }
 
     }

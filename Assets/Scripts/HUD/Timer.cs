@@ -41,7 +41,7 @@ public class Timer : MonoBehaviour
             time = 5f;
             _levelManager.GetNewTile();
         }
-        _text.text = time.ToString("F1") + "s";
+        _text.text = Mathf.CeilToInt(time).ToString("F0") + "s";
     }
 
     #endregion

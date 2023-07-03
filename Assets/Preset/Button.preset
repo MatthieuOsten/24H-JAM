@@ -54,15 +54,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.r
-    value: 0.7169812
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.g
-    value: 0.7169812
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.b
-    value: 0.7169812
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.a
@@ -70,15 +70,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.r
-    value: 1
+    value: 0.7176471
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.g
-    value: 1
+    value: 0.7176471
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.b
-    value: 1
+    value: 0.7176471
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.a

@@ -6011,10 +6011,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e5b3e43a84fba4c0395ade2ed4dd562e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6e1803acec8009b48a83d47a97a90f64, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
-  m_Pitch: -0.9
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -6141,7 +6141,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 01b0636415e48946a989bba8fc590ea1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6527,7 +6527,7 @@ MonoBehaviour:
   _switchMoonToSun: 1
   _listChangePoints: []
   _actualPoint: -1
-  _speed: 0.05
+  _speed: 0.02
   _speedFade: 2
   _endOfDay:
     m_PersistentCalls:
@@ -6796,10 +6796,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c4f607ce3fae67c66a727d026444508d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4f4a2cf8339967448bce6ad8b8d927bc, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
-  m_Pitch: 1.2
+  m_Volume: 0.2
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
