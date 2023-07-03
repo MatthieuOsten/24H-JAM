@@ -55,7 +55,8 @@ public class GameManager : MonoBehaviour
 
     private int win = 0;
     private Ending _ending;
-    
+    [SerializeField] private string[] _nameLevels = new string[0];
+
     #endregion
     
     #region ACCESSEUR
@@ -81,22 +82,36 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
+    public void RandomLevel()
+    {
+        int rand = UnityEngine.Random.Range(0, _nameLevels.Length);
+
+        if (_nameLevels != null)
+        {
+            if (rand < 0 && rand >= _nameLevels.Length) { rand = 0; }
+
+            if (_nameLevels.Length > 0)
+            {
+                Debug.Log("Rand " + rand + " " + _nameLevels[rand]);
+                LoadScene(_nameLevels[rand]);
+            }
+        }
+    }
 
     #endregion
 
     #region UNITY FUNCTIONS
-    
-    private void Awake()
+
+    private void OnEnable()
     {
         if (_instance == null)
         {
             _instance = this;
         }
-        else
-        {
-            DestroyImmediate(this);
-        }
-        
+    }
+
+    private void Awake()
+    {
         DontDestroyOnLoad(this);
     }
 

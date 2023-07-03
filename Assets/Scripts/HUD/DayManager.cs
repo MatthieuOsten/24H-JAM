@@ -46,6 +46,11 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _changeAstre = true;
+    }
+
     private void Update()
     {
         if (_slider != null)
@@ -101,6 +106,11 @@ public class DayManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_switchMoonToSun && _time >= 0.5f)
+        {
+            _changeAstre = true;
+        }
+
         if (_changeAstre)
         {
             if (_switchMoonToSun)

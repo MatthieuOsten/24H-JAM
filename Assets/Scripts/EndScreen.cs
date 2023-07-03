@@ -19,6 +19,11 @@ public class EndScreen : MonoBehaviour
 
     [SerializeField] private AudioClip _endMusic;
 
+    [Header("CHANGE SCENE")]
+
+    [SerializeField] private string _nameGameLevel = "Buildings"; 
+    [SerializeField] private string _nameMainMenu = "MainMenu";
+
     private void Awake()
     {
         if ((int)GameManager.Instance.TheEnding <= _endings.listSprites.Count && (int)GameManager.Instance.TheEnding > 0)
@@ -51,7 +56,12 @@ public class EndScreen : MonoBehaviour
 
     public void ReturnToGame()
     {
-        GameManager.Instance.LoadScene("Buildings");
+        GameManager.Instance.LoadScene(_nameGameLevel);
+    }
+
+    public void ReturnToMenu()
+    {
+        GameManager.Instance.LoadScene(_nameMainMenu);
     }
 
 }

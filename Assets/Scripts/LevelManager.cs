@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
@@ -48,6 +48,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3Int currentGridPosition;
     [SerializeField] private Vector3Int lastGridPosition;
 
+    [SerializeField] private UnityEvent _placeBuilding, _newTile;
+
     #endregion
 
     #region ACCESSEUR
@@ -92,16 +94,26 @@ public class LevelManager : MonoBehaviour
                     cnt++;
             }
             if (cnt == 0)
+            {
                 return;
+            }
+
+            _placeBuilding.Invoke();
+
             BuildingManager buildingManager = BuildingManager.Instance;
             _buildingTilemap.SetTile(mousePosInt, _actualTile);
             _groundTilemap.SetTile(mousePosInt, _allowedPlacement.BuildingPrefabs[0]);
+
+            Debug.Log("count " + buildingManager.buildingTiles.Count + " PrefabID " + _prefabId);
             buildingManager.buildingTiles[_prefabId].OnPlace(_buildingTilemap, mousePosInt);
+            
             Timer.Instance.time = 5f;
             GetNewTile();
+
         }
         else if (_actualTile != null)
         {
+            // Get position
             Vector3 _mousePos = _currentCamera.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int _mousePosInt = _previewTilemap.WorldToCell(_mousePos);
 
@@ -114,7 +126,7 @@ public class LevelManager : MonoBehaviour
             Vector3 pos = _currentCamera.ScreenToWorldPoint(_mousePos);
             Vector3Int gridPos = _previewTilemap.WorldToCell(pos);
 
-            if (gridPos != currentGridPosition)
+            if (_mousePosInt != currentGridPosition)
             {
                 lastGridPosition = currentGridPosition;
                 currentGridPosition = gridPos;
@@ -130,6 +142,8 @@ public class LevelManager : MonoBehaviour
 
     public TileBase GetNewTile()
     {
+        _newTile.Invoke();
+
         BuildingManager manager = BuildingManager.Instance;
         int rnd = Random.Range(0, manager.buildingTiles.Count);
         int rnd2 = Random.Range(0, manager.buildingTiles[rnd].BuildingPrefabs.Count);
