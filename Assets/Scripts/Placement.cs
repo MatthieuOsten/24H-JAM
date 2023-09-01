@@ -94,7 +94,7 @@ public class Placement : MonoBehaviour
             if (LevelManager.Instance.ValitadeConstruct(mousePosInt))
                 return;
 
-            if (LevelManager.Instance.AllowedPlacement(mousePosInt))
+            if (LevelManager.Instance.CanBuild(mousePosInt))
                 return;
 
             _tilemap.SetTile(mousePosInt,LevelManager.Instance.GetNewTile());

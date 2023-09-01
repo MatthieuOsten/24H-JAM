@@ -33,7 +33,9 @@ public class Hobbies : BuildingTileScriptable
         worldPos.x += 0.5f;
         worldPos.y += 0.5f;
         worldPos.z = 1f;
-        BuildText.Instance.UpdateText(worldPos, "Happiness: " +  cnt + "\nWork: " + -loss);
+
+        TextPlace(worldPos, "Happiness: " + cnt + "\nWork: " + -loss);
+
     }
     
 }

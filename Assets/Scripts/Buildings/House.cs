@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -32,7 +33,8 @@ public class House : BuildingTileScriptable
         worldPos.x += 0.5f;
         worldPos.y += 0.5f;
         worldPos.z = 1f;
-        BuildText.Instance.UpdateText(worldPos, "Population: " +  cnt + "\nWork: " + income);
+
+        TextPlace(worldPos, "Population: " + cnt + "\nWork: " + income);
     }
     
 }

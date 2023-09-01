@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -40,13 +41,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Tilemap _buildingTilemap;
     [SerializeField] private Tilemap _previewTilemap;
     [SerializeField] private Camera _currentCamera;
-    [SerializeField] private BuildingTileScriptable _allowedPlacement;
+    [SerializeField] private GroundTileScriptable _allowedPlacement;
     [SerializeField] private TileBase _actualTile;
     [SerializeField] private Sprite _actualSprite;
     [SerializeField] private int _prefabId;
+    [SerializeField] private BuildText _buildText;
 
-    [SerializeField] private Vector3Int currentGridPosition;
-    [SerializeField] private Vector3Int lastGridPosition;
+    [SerializeField] private Vector3Int _currentGridPosition;
 
     [SerializeField] private UnityEvent _placeBuilding, _newTile;
 
@@ -64,6 +65,12 @@ public class LevelManager : MonoBehaviour
         get => _actualSprite;
         set => _actualSprite = value;
     }
+
+    public BuildText BuildText
+    {
+        get => _buildText;
+        set => _buildText = value;
+    }
     #endregion
 
     #region FUNCTION UNITY
@@ -76,7 +83,9 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0) && _actualTile != null)
+        _previewTilemap.SetTile(_currentGridPosition, null); // Sub old preview
+
+        if (_actualTile != null)
         {
             Vector3 mousePos = _currentCamera.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int mousePosInt = _buildingTilemap.WorldToCell(mousePos);
@@ -85,60 +94,90 @@ public class LevelManager : MonoBehaviour
                 mousePosInt.y,
                 Mathf.RoundToInt(_buildingTilemap.transform.position.z)
             );
-            if (!_groundTilemap.GetTile(mousePosInt) || _buildingTilemap.GetTile(mousePosInt))
-                return;
-            int cnt = 0;
-            foreach (TileBase tile in _allowedPlacement.BuildingPrefabs)
+
+            _currentGridPosition = mousePosInt; // Update current position
+
+            if (CanBuild(out _))
+                _previewTilemap.SetTile(mousePosInt, _actualTile); // Add new preview
+
+            TileBase defaultTile = null;
+            if (Input.GetMouseButtonUp(0) && CanBuild(out defaultTile))
             {
-                if (_groundTilemap.GetTile(mousePosInt) == tile)
-                    cnt++;
-            }
-            if (cnt == 0)
-            {
-                return;
-            }
+                _placeBuilding.Invoke();
 
-            _placeBuilding.Invoke();
+                BuildingManager buildingManager = BuildingManager.Instance;
+                _buildingTilemap.SetTile(mousePosInt, _actualTile); // Set building on map
 
-            BuildingManager buildingManager = BuildingManager.Instance;
-            _buildingTilemap.SetTile(mousePosInt, _actualTile);
-            _groundTilemap.SetTile(mousePosInt, _allowedPlacement.BuildingPrefabs[0]);
+                if (defaultTile != null) // Change the ground for building
+                    _groundTilemap.SetTile(mousePosInt, defaultTile);
 
-            Debug.Log("count " + buildingManager.buildingTiles.Count + " PrefabID " + _prefabId);
-            buildingManager.buildingTiles[_prefabId].OnPlace(_buildingTilemap, mousePosInt);
-            
-            Timer.Instance.time = 5f;
-            GetNewTile();
+                Debug.Log("count " + buildingManager.buildingTiles.Count + " PrefabID " + _prefabId);
+                buildingManager.buildingTiles[_prefabId].OnPlace(_buildingTilemap, mousePosInt);
 
-        }
-        else if (_actualTile != null)
-        {
-            // Get position
-            Vector3 _mousePos = _currentCamera.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int _mousePosInt = _previewTilemap.WorldToCell(_mousePos);
-
-            _mousePosInt = new Vector3Int(
-                _mousePosInt.x,
-                _mousePosInt.y,
-                Mathf.RoundToInt(_previewTilemap.transform.position.z)
-                );
-
-            Vector3 pos = _currentCamera.ScreenToWorldPoint(_mousePos);
-            Vector3Int gridPos = _previewTilemap.WorldToCell(pos);
-
-            if (_mousePosInt != currentGridPosition)
-            {
-                lastGridPosition = currentGridPosition;
-                currentGridPosition = gridPos;
-
-                UpdatePreview();
+                Timer.Instance.time = 5f;
+                GetNewTile();
 
             }
         }
+
     }
     #endregion
 
     #region FUNCTION
+
+    public bool CanBuild(Vector3Int pos)
+    {
+
+        if (!_groundTilemap.GetTile(_currentGridPosition) || _buildingTilemap.GetTile(_currentGridPosition))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < _allowedPlacement.BuildingPrefabs.Length; i++)
+        {
+            if (!_allowedPlacement.BuildingPrefabs[i].Buildable) { continue; }
+
+            foreach (TileBase tile in _allowedPlacement.BuildingPrefabs[i].ListBuildingTiles)
+            {
+                if (_groundTilemap.GetTile(pos) == tile)
+                {
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+
+    }
+
+    private bool CanBuild(out TileBase tileBasic)
+    {
+        tileBasic = null;
+
+        if (!_groundTilemap.GetTile(_currentGridPosition) || _buildingTilemap.GetTile(_currentGridPosition))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < _allowedPlacement.BuildingPrefabs.Length; i++)
+        {
+            if (!_allowedPlacement.BuildingPrefabs[i].Buildable) { continue; }
+
+            foreach (TileBase tile in _allowedPlacement.BuildingPrefabs[i].ListBuildingTiles)
+            {
+                if (_groundTilemap.GetTile(_currentGridPosition) == tile)
+                {
+                    tileBasic = _allowedPlacement.BuildingPrefabs[i].BasicTile;
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+
+    }
 
     public TileBase GetNewTile()
     {
@@ -177,34 +216,12 @@ public class LevelManager : MonoBehaviour
         return -1;
     }
 
-    public bool AllowedPlacement(Vector3Int mousePos)
-    {
-        int cnt = 0;
-        foreach (TileBase tile in _allowedPlacement.BuildingPrefabs)
-        {
-            if (_groundTilemap.GetTile(mousePos) == tile)
-                cnt++;
-        }
-        if (cnt == 0)
-            return false;
-
-        return true;
-    }
-
     public bool ValitadeConstruct(Vector3Int mousePos)
     {
         if (!_groundTilemap.GetTile(mousePos) || _buildingTilemap.GetTile(mousePos))
             return false;
 
         return true;
-    }
-
-    private void UpdatePreview()
-    {
-        // Remove old tile if existing
-        _previewTilemap.SetTile(lastGridPosition, null);
-        // Set current tile to current mouse positions tile
-        _previewTilemap.SetTile(currentGridPosition, _actualTile);
     }
 
     public void EndLevel(string name)

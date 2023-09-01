@@ -6,36 +6,23 @@ public class BuildText : MonoBehaviour
 {
     #region VARIABLE
     
-    private LevelManager _levelManager;
     private TextMeshProUGUI _text;
     public float time;
 
     #endregion
-    
-    #region SINGLETON
-    
-    private static BuildText _instance;
-    
-    public static BuildText Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<BuildText>();
-            }
 
-            return _instance;
+    #region UNITY FUNCTIONS
+
+    private void Awake()
+    {
+        if (LevelManager.Instance.BuildText == null)
+        {
+            LevelManager.Instance.BuildText = this;
         }
     }
 
-    #endregion
-    
-    #region UNITY FUNCTIONS
-    
     private void Start()
     {
-        _levelManager = LevelManager.Instance;
         _text = GetComponent<TextMeshProUGUI>();
         time = 2f;
     }

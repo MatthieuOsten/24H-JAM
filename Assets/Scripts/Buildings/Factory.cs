@@ -32,7 +32,8 @@ public class Factory : BuildingTileScriptable
         worldPos.x += 0.5f;
         worldPos.y += 0.5f;
         worldPos.z = 1f;
-        BuildText.Instance.UpdateText(worldPos, "Work: " +  cnt + "\nPopulation: " + -loss);
+
+        TextPlace(worldPos, "Work: " + cnt + "\nPopulation: " + -loss);
     }
     
 }
